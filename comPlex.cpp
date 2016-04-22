@@ -29,6 +29,71 @@ Complex::~Complex()                                                     // де�
     for (int i = 0; i<200000000; ++i);
 }
 
+Complex& Complex::operator++()                                                          // префиксный ++инкремент
+{
+    real++;
+    image++;
+    return *this;
+}
+
+Complex Complex::operator++(int)                                                        // постфиксный инкремент++
+{
+    Complex temp = *this;
+    ++*this;
+    return temp;
+}
+
+Complex& Complex::operator--()                                                          // префиксный --декремент
+{
+    real--;
+    image--;
+    return *this;
+}
+
+Complex Complex::operator--(int)                                                        // постфиксный декремент--
+{
+    Complex temp = *this;
+    --*this;
+    return temp;
+}
+
+Complex Complex::operator+(Complex &obj)                                                // бинарный + плюс
+{
+    return Complex(real+obj.real, image+obj.image);
+}
+
+Complex Complex::operator-(Complex &obj)                                                // бинарный - минус
+{
+    return Complex(real-obj.real, image-obj.image);
+}
+
+bool Complex::operator==(Complex objectRight)                                           // проверка на == равенство
+{
+    return ((this->real==objectRight.real)&&(this->image==objectRight.image));
+}
+
+Complex &Complex::operator=(Complex &objectRight)                                       // присваивание =
+{
+    if (&objectRight==this) 
+        return *this;
+    this->real = objectRight.real;
+    this->image = objectRight.image;
+    return *this;
+}
+
+ostream & operator << (ostream &out, Complex &obj)                                      // cout<<
+{
+    out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
+
+	return out;
+}
+
+istream & operator >> (istream &in, Complex &obj)                                       // cin>>
+{
+	
+	return in;
+}
+
 int Complex::getCounter()                                               // возврат счётчика
 {
     return counter;
