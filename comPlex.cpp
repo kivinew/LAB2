@@ -7,26 +7,26 @@ double const Complex::pi = 3.1415926536;
 Complex::Complex(): real(0), image(0)                                   // конструктор по умолчанию
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::Complex(int re, int im): real(re), image(im)                   // конструктор с параметрами
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::Complex(Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::~Complex()                                                     // деструктор
 {
     --counter;
     cout<<"ДЕСТРУКТОР: id"<<objNum<<" удален."<<endl;
-    for (int i = 0; i<200000000; ++i);
+    for (int i = 0; i<150000000; ++i);
 }
 
 Complex& Complex::operator++()                                                          // префиксный ++инкремент
@@ -84,13 +84,15 @@ Complex &Complex::operator=(Complex &objectRight)                               
 ostream & operator << (ostream &out, Complex &obj)                                      // cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
-
 	return out;
 }
 
 istream & operator >> (istream &in, Complex &obj)                                       // cin>>
 {
-	
+    cout<<"real = ";
+    in>>obj.real;
+    cout<<"image =";
+    in>>obj.image;
 	return in;
 }
 
