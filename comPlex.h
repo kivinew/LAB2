@@ -2,6 +2,7 @@
 #include <iostream>
 #include <conio.h>
 #include <math.h>
+#include <Windows.h>
 using namespace std;
 
 class Complex
@@ -15,9 +16,14 @@ public:
     Complex();
     Complex(int, int);
     Complex(Complex &);
-    ~Complex();
-
-    
+	~Complex();
+	void edit();
+	void showObject();
+	double mod();
+	double arg();
+	static int getCounter();
+	static void del(Complex* &);
+	/*----------------------------------*/
     Complex &operator++();
     Complex operator++(int);
     Complex &operator--();
@@ -29,10 +35,5 @@ public:
     friend ostream & operator << (ostream &out, Complex &obj);
     friend istream & operator >> (istream &in, Complex &obj);
 
-    static int getCounter();
-    void edit();
-    static void del(Complex* &);
-    void showObject();
-    double mod();
-    double arg();
+
 };
