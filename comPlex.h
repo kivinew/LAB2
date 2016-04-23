@@ -1,5 +1,4 @@
 #pragma once
-<<<<<<< HEAD
 #include <iostream>
 #include <conio.h>
 #include <math.h>
@@ -37,25 +36,3 @@ public:
     double mod();
     double arg();
 };
-=======
-#include <math.h>
-#include <cstdio>
-#include <iostream>
-#include <conio.h>
-
-using namespace std;
-
-static int counter ;
-class comPlex
-{
-    double real , image;
-    long long int big [ 50000 ];
-public:
-    const double pi = 3.141592654;
-    comPlex ( );
-    ~comPlex ( );
-    bool entering ( );
-    double mod ( );
-    double arg ( );
-};
->>>>>>> 88b49302bccfe1ab86b747c9ffc12aff4fab0500
