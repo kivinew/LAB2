@@ -4,6 +4,7 @@
 */
 
 #include "comPlex.h"
+<<<<<<< HEAD
 #include <locale>
 #include <Windows.h>
 #define ESC         27
@@ -104,3 +105,31 @@ void deleteAll(Complex** &arr, int size)                // удаление массива
     _getch();
     return;
 }
+=======
+#include <Windows.h>
+#include <list>
+
+
+void main ( )
+{
+    SetCursorPos ( 600 , 0 ) ;
+    SetConsoleTitleA ( "LAB1: complex numbers" ) ;
+    comPlex *Z = new comPlex[2000];
+    do
+    {
+        system ( "cls" );
+        if ( Z -> entering ( ) )
+        {
+            cout << "Module |Z| is ..." << Z -> mod ( ) << endl;
+            cout << "Argument arg Z is ..." << Z -> arg ( ) * 180 / Z -> pi << endl;
+        }
+        else
+        {
+            //delete Z;
+            return;
+        }
+        _getch ( );
+    } while ( 1 );
+    return ;
+}
+>>>>>>> 88b49302bccfe1ab86b747c9ffc12aff4fab0500
