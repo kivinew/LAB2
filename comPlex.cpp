@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿#include "comPlex.h"
 
 int Complex::counter;
@@ -8,19 +7,19 @@ double const Complex::pi = 3.1415926536;
 Complex::Complex(): real(0), image(0)                                   // конструктор по умолчанию
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::Complex(int re, int im): real(re), image(im)                   // конструктор с параметрами
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::Complex(Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
 {
     objNum = ++num;
-    ++counter;
+    counter++;
 }
 
 Complex::~Complex()                                                     // деструктор
@@ -33,6 +32,11 @@ Complex::~Complex()                                                     // де�
 int Complex::getCounter()                                               // возврат счётчика
 {
     return counter;
+}
+
+int Complex::getNum()
+{
+    return num;
 }
 
 void Complex::edit()                                                    // редактирование объекта
@@ -57,9 +61,9 @@ void Complex::del(Complex* &obj)                            // удаление 
 void Complex::showObject()                                  // вывод объектов
 {
     cout<<"Z="<<real<<"+"<<image<<"*i"<<"\t"<<"|Z|="<<mod()<<"\t";
-    if (arg()!=0) 
+    if (arg()!=0)
         cout<<"arg Z="<<arg()*180/pi<<"\t"<<endl;
-    else 
+    else
         cout<<"n/a"<<endl;
     return;
 }
@@ -82,62 +86,74 @@ double Complex::arg()                                       // аргумент
     {
         if (image>0) return pi/2;
         if (image<0) return -pi/2;
-=======
-#include "comPlex.h"
-
-comPlex::comPlex ( )                                                    // ����������� �� ���������
-{
-    real = 0;
-    image = 0;
-    cout << counter++;
-}
-
-comPlex::~comPlex ( )
-{
-    system ( "cls" );
-    cout << "DESTRUCTOR: " << counter-- << " Good bye!!" << endl;
-}
-
-bool comPlex::entering ( )                                              // ���� ������ ������������ �����
-{
-    double tmpReal , tmpImage;                                          // ��������� ���������� ��� �������� �� ����
-    cout << "Enter real part of complex number Z: real= " ;             // �������������� �����
-    cin >> tmpReal;
-    cout << "Enter image part of complex number Z: image= " ;           // ������ �����
-    cin >> tmpImage;
-    cout << endl;
-
-    if ( tmpReal == 0 && tmpImage == 0 )
-{
-        cout << "Module |Z| is 0 " << endl;
-        cout << "ARGUMENT IS NOT DEFINED!!!" << endl;
-        _getch ( );
-        return false;
-    }
-    real = tmpReal;
-    image = tmpImage;
-    return true;
-}
-
-double comPlex::mod ( )                                             // ������
-{
-    return sqrt ( real*real + image*image );
-}
-
-double comPlex::arg ( )                                             // ��������
-{
-    if ( real > 0 ) return atan ( image / real );
-    if ( real < 0 ) 
-    {
-        if ( image > 0 ) return pi + atan ( image / real );
-        if ( image < 0 ) return -pi + atan ( image / real );
-        if ( image == 0 ) return pi;
-    }
-    if ( real == 0 )
-    {
-        if ( image > 0 ) return pi / 2;
-        if ( image < 0 ) return -pi / 2;
->>>>>>> 88b49302bccfe1ab86b747c9ffc12aff4fab0500
     }
     return 0;
+}
+
+Complex& Complex::operator++()                                                          // префиксный ++инкремент
+{
+    real++;
+    image++;
+    return *this;
+}
+
+Complex Complex::operator++(int)                                                        // постфиксный инкремент++
+{
+    Complex temp = *this;
+    ++*this;
+    return temp;
+}
+
+Complex& Complex::operator--()                                                          // префиксный --декремент
+{
+    real--;
+    image--;
+    return *this;
+}
+
+Complex Complex::operator--(int)                                                        // постфиксный декремент--
+{
+    Complex temp = *this;
+    --*this;
+    return temp;
+}
+
+Complex Complex::operator+(Complex &obj)                                                // бинарный + плюс
+{
+    return Complex(real+obj.real, image+obj.image);
+}
+
+Complex Complex::operator-(Complex &obj)                                                // бинарный - минус
+{
+    return Complex(real-obj.real, image-obj.image);
+}
+
+bool Complex::operator==(Complex objectRight)                                           // проверка на == равенство
+{
+    return ((this->real==objectRight.real)&&(this->image==objectRight.image));
+}
+
+Complex &Complex::operator=(Complex &objectRight)                                       // присваивание =
+{
+    if (&objectRight==this) 
+        return *this;
+    this->real = objectRight.real;
+    this->image = objectRight.image;
+    return *this;
+}
+
+ostream & operator << (ostream &out, Complex &obj)                                      // cout<<
+{
+    out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
+	return out;
+}
+
+istream & operator >> (istream &in, Complex &obj)                                       // cin>>
+{
+    cout<<"Объект "<<obj.getNum()<<":"<<endl
+        <<"Введите действительную часть real = ";
+    in>>obj.real;
+    cout<<"Введите мнимую часть image =";
+    in>>obj.image;
+	return in;
 }

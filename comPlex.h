@@ -17,13 +17,15 @@ public:
     Complex(int, int);
     Complex(Complex &);
 	~Complex();
-	void edit();
-	void showObject();
 	double mod();
 	double arg();
+    void showObject();
 	static int getCounter();
+    int Complex::getNum();
+    /*-----------------------------------------------------*/
 	static void del(Complex* &);
-	/*----------------------------------*/
+    void edit();
+	/*-----------------------------------------------------*/
     Complex &operator++();
     Complex operator++(int);
     Complex &operator--();
@@ -34,6 +36,4 @@ public:
     bool operator==(Complex);
     friend ostream & operator << (ostream &out, Complex &obj);
     friend istream & operator >> (istream &in, Complex &obj);
-
-
 };

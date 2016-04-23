@@ -8,3 +8,5 @@
 *.tlog
 *.pdb
 *.idb
+*.filters
+*.TMP

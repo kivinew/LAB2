@@ -19,12 +19,15 @@
 int main();
 
 int menu(Complex** &, int &);
-void insert(Complex** &, int);
+void insert(Complex** &, int, Complex);
 void showTable(Complex** &, int);
 void deleteAll(Complex** &, int);
 Complex add(Complex**, int);
 
 Complex *model = new Complex;
+Complex** arrPointers;                                                      // объявление массива исходных объектов
+Complex** arrResult;                                                        // объявление массива результатов
+int arrSize = 5;                                                            // размер таблицы
 
 int main()
 {
@@ -34,14 +37,10 @@ int main()
     cout<<"Введите эталонный объект Complex: "<<endl;
     cin>>*model;
     system("cls");
-	Complex** arrPointers;                                                      // объявление массива исходных объектов
-	Complex** arrResult;                                                        // объявление массива результатов
-    int arrSize;                                                                // размер массива
-    arrSize = 10;                                 
     arrPointers = new Complex*[arrSize]();                                      // определение массива
 	arrResult = new Complex*[arrSize]();
     for (int i = 0; i<arrSize; i++)
-        insert(arrPointers, i);                                                 // заполнить строки таблицы
+        cin>>*arrPointers[arrSize];                                             // заполнить строки таблицы
 	while (menu(arrPointers, arrSize));
     delete model;
     return 0;
@@ -66,7 +65,7 @@ int menu(Complex** &objectArray, int&size)                                      
     case '1':
 		cout << "Выберите элемент для сложения с эталоном ";
 		cin >> number;
-		insert(objectArray, number);
+		insert(objectArray, size, add(objectArray, number));
         break;
     case '2':
 		cout << "Выберите элемент для вычитания от эталона";
@@ -92,9 +91,9 @@ int menu(Complex** &objectArray, int&size)                                      
     return TRUE;
 }
 
-void insert(Complex** &arr, int number)                                         // заполнить строки таблицы
-{                                                                               // cin>>Complex
-    cin>>*arrResult[number];
+void insert(Complex** &arr, int size, Complex object)                                      // вставка объекта в массив
+{
+    arr
 }
 
 void showTable(Complex** &arr, int size)                                    // вывод таблицы объектов
