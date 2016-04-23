@@ -36,14 +36,14 @@ int Complex::getCounter()                                               // во�
 
 int Complex::getNum()
 {
-    return num;
+    return objNum;
 }
 
 void Complex::edit()                                                    // редактирование объекта
 {
-    cout<<endl<<"Введите действительную часть Z: real= "<<endl;
+    cout<<endl<<"действительная часть Z: real= "<<endl;
     cin>>real;
-    cout<<"Введите мнимую часть Z: image= "<<endl;
+    cout<<"мнимая часть Z: image= "<<endl;
     cin>>image;
     return;
 }
@@ -151,9 +151,9 @@ ostream & operator << (ostream &out, Complex &obj)                              
 istream & operator >> (istream &in, Complex &obj)                                       // cin>>
 {
     cout<<"Объект "<<obj.getNum()<<":"<<endl
-        <<"Введите действительную часть real = ";
+        <<"действительная часть real = ";
     in>>obj.real;
-    cout<<"Введите мнимую часть image =";
+    cout<<"мнимая часть image =";
     in>>obj.image;
 	return in;
 }

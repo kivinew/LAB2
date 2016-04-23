@@ -1,6 +1,6 @@
-п»ї/* Р’Р°СЂРёР°РЅС‚ в„– 9. РљРѕРјРїР»РµРєСЃРЅС‹Рµ С‡РёСЃР»Р°.
-РћР±СЉРµРєС‚ РєР»Р°СЃСЃР° С…СЂР°РЅРёС‚ РґРµР№СЃС‚РІРёС‚РµР»СЊРЅСѓСЋ ( REAL a ) Рё РјРЅРёРјСѓСЋ ( IMAGE b*i ) С‡Р°СЃС‚СЊ РєРѕРјРїР»РµРєСЃРЅРѕРіРѕ С‡РёСЃР»Р° z = a + b*i.
-РџСЂРµРґСѓСЃРјРѕС‚СЂРµС‚СЊ РјРµС‚РѕРґС‹ РІС‹С‡РёСЃР»РµРЅРёСЏ РјРѕРґСѓР»СЏ ( РІРµРєС‚РѕСЂР° ) Рё Р°СЂРіСѓРјРµРЅС‚Р° ( СѓРіР»Р° ).
+/* Вариант № 9. Комплексные числа.
+Объект класса хранит действительную ( REAL a ) и мнимую ( IMAGE b*i ) часть комплексного числа z = a + b*i.
+Предусмотреть методы вычисления модуля ( вектора ) и аргумента ( угла ).
 */
 
 #include "comPlex.h"
@@ -16,109 +16,118 @@
 #define ENTER       13
 #define DEL         83 
 
-int main();
-
-int menu(Complex** &, int &);
-void insert(Complex** &, int, Complex);
-void showTable(Complex** &, int);
+void gotoxy(int, int);
+int menu();
+void showTable();
 void deleteAll(Complex** &, int);
 Complex add(Complex**, int);
 
 Complex *model = new Complex;
-Complex** arrPointers;                                                      // РѕР±СЉСЏРІР»РµРЅРёРµ РјР°СЃСЃРёРІР° РёСЃС…РѕРґРЅС‹С… РѕР±СЉРµРєС‚РѕРІ
-Complex** arrResult;                                                        // РѕР±СЉСЏРІР»РµРЅРёРµ РјР°СЃСЃРёРІР° СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ
-int arrSize = 5;                                                            // СЂР°Р·РјРµСЂ С‚Р°Р±Р»РёС†С‹
+Complex** arrPointers;                                                      // объявление массива исходных объектов
+Complex** arrResult;                                                        // объявление массива объектов-результатов
+int arrSize = 5;                                                            // размер таблицы
 
 int main()
 {
     setlocale(LC_ALL, "Ru");
     SetConsoleTitleA("LAB2: Complex numbers");
 
-    cout<<"Р’РІРµРґРёС‚Рµ СЌС‚Р°Р»РѕРЅРЅС‹Р№ РѕР±СЉРµРєС‚ Complex: "<<endl;
+    cout<<"Введите эталонный объект Complex: "<<endl;
     cin>>*model;
     system("cls");
-    arrPointers = new Complex*[arrSize]();                                      // РѕРїСЂРµРґРµР»РµРЅРёРµ РјР°СЃСЃРёРІР°
+    arrPointers = new Complex*[arrSize]();                                  // определение массива
 	arrResult = new Complex*[arrSize]();
-    for (int i = 0; i<arrSize; i++)
-        cin>>*arrPointers[arrSize];                                             // Р·Р°РїРѕР»РЅРёС‚СЊ СЃС‚СЂРѕРєРё С‚Р°Р±Р»РёС†С‹
-	while (menu(arrPointers, arrSize));
+    for (int i = 0; i<arrSize; i++)                                         // заполнить строки таблицы
+    {
+        gotoxy(40, 3);
+        cout<<*model<<endl;
+        gotoxy(0, 0);
+        showTable();
+        *(arrPointers+arrSize) = new Complex;
+        cin>>*arrPointers[arrSize];
+        cout<<*arrPointers[arrSize]<<endl;
+        system("cls");
+    }
+	while (menu());
     delete model;
     return 0;
 }
 
-int menu(Complex** &objectArray, int&size)                                      // РјРµРЅСЋ LAB2
+int menu()                                      // меню LAB2
 {
     system("cls");
-    showTable(objectArray, size);
-    cout<<endl<<"1 - СЃР»РѕР¶РµРЅРёРµ РєРѕРјРїР»РµРєСЃРЅС‹С… С‡РёСЃРµР»"<<endl
-        <<"2 - РІС‹С‡РёС‚Р°РЅРёРµ РєРѕРјРїР»РµРєСЃРЅС‹С… С‡РёСЃРµР»"<<endl
-        <<"3 - РёРЅРєСЂРµРјРµРЅС‚ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹"<<endl
-        <<"4 - РґРµРєСЂРµРјРµРЅС‚ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹"<<endl
-        <<"5 - СѓРјРЅРѕР¶РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹"<<endl
-        <<"6 - РґРµР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹"<<endl;
+    showTable();
+    cout<<endl<<"1 - сложение комплексных чисел"<<endl
+        <<"2 - вычитание комплексных чисел"<<endl
+        <<"3 - инкремент элемента таблицы"<<endl
+        <<"4 - декремент элемента таблицы"<<endl
+        <<"5 - умножение элемента таблицы"<<endl
+        <<"6 - деление элемента таблицы"<<endl
+        <<"ESC - выход"<<endl;
     while (!_kbhit());
     int choice = _getch();
-	int number;																	// РЅРѕРјРµСЂ СЌР»РµРјРµРЅС‚Р° С‚Р°Р±Р»РёС†С‹
+	int number;																	// номер элемента таблицы
     
     switch (choice)
     {
     case '1':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ СЃР»РѕР¶РµРЅРёСЏ СЃ СЌС‚Р°Р»РѕРЅРѕРј ";
+		cout << "Выберите элемент для сложения с эталоном ";
 		cin >> number;
-		insert(objectArray, size, add(objectArray, number));
+
         break;
     case '2':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ РІС‹С‡РёС‚Р°РЅРёСЏ РѕС‚ СЌС‚Р°Р»РѕРЅР°";
+		cout << "Выберите элемент для вычитания от эталона ";
 		cin >> number;
         break;
     case '3':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ РёРЅРєСЂРµРјРµРЅС‚РёСЂРѕРІР°РЅРёСЏ";
+		cout << "Выберите элемент для инкрементирования ";
 		cin >> number;
         break;
 	case '4':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ РґРµРєСЂРµРјРµРЅС‚РёСЂРѕРІР°РЅРёСЏ";
+		cout << "Выберите элемент для декрементирования ";
 		cin >> number;
         break;
 	case '5':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ СѓРјРЅРѕР¶РµРЅРёСЏ";
+		cout << "Выберите элемент для умножения ";
 		cin >> number;
         break;
 	case '6':
-		cout << "Р’С‹Р±РµСЂРёС‚Рµ СЌР»РµРјРµРЅС‚ РґР»СЏ РґРµР»РµРЅРёСЏ";
+		cout << "Выберите элемент для деления ";
 		cin >> number;
         break;
+    case ESC:
+        deleteAll(arrPointers, arrSize);
+        deleteAll(arrResult, arrSize);
+        return FALSE;
     }
     return TRUE;
 }
 
-void insert(Complex** &arr, int size, Complex object)                                      // РІСЃС‚Р°РІРєР° РѕР±СЉРµРєС‚Р° РІ РјР°СЃСЃРёРІ
+void showTable()                                    // вывод таблицы объектов
 {
-    arr
-}
-
-void showTable(Complex** &arr, int size)                                    // РІС‹РІРѕРґ С‚Р°Р±Р»РёС†С‹ РѕР±СЉРµРєС‚РѕРІ
-{
-    cout<<"РћР±СЉРµРєС‚ :"<<endl;
-    for (int i = 0; i<size; i++)
+    cout<<"Объект :"<<endl;
+    for (int i = 0; i<arrSize; i++)
     {
         cout<<i<<": ";
-        if (arr[i]!=NULL)                                                   // РµСЃР»Рё СѓРєР°Р·Р°С‚РµР»СЊ РЅРµ СЂР°РІРµРЅ РЅСѓР»СЋ
+        if (arrPointers[i]!=NULL)                                               // если указатель не равен нулю
         {
-            cout<<(*arr[i]);                                         // С‚Рѕ РІС‹РІРѕРґРёРј РѕР±СЉРµРєС‚
+            cout<<*arrPointers[i];                                              
+    gotoxy(40,3);
+    cout<<*model<<endl;// то выводим объект
         }
         else
             cout<<"empty"<<endl;
     }
 }
 
-void deleteAll(Complex** &arr, int size)							// СѓРґР°Р»РµРЅРёРµ РјР°СЃСЃРёРІР°
+void deleteAll(Complex** &arr, int size)							// удаление массива
 {
     for (int i = 0; i<size; i++)
     {
-        Complex::del(arr[i]);										// СѓРґР°Р»РµРЅРёРµ РѕР±СЉРµРєС‚РѕРІ РјР°СЃСЃРёРІР°
+        Complex::del(arr[i]);										// удаление объектов массива
     }
-    delete[] arr;                                       // СѓРґР°Р»РµРЅРёРµ РјР°СЃСЃРёРІР°
-    cout<<"РњР°СЃСЃРёРІ СѓРґР°Р»С‘РЅ"<<endl;
+    delete[] arr;                                       // удаление массива
+    cout<<"Массив удалён"<<endl;
     _getch();
     return;
 }
@@ -146,3 +155,13 @@ Complex sub(Complex** arr, int number)
 //	Complex result = *model * *(arr[number])
 //		return result;
 //}
+
+void gotoxy(int x, int y)                                                // перевод курсора в положение X,Y
+{
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(hStdOut, coord);
+    return;
+}
