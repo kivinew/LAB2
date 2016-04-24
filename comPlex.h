@@ -21,7 +21,7 @@ public:
 	double arg();
     void showObject();
 	static int getCounter();
-    int Complex::getNum();
+    int getNum();
     /*-----------------------------------------------------*/
 	static void del(Complex* &);
     void edit();

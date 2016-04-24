@@ -1,54 +1,54 @@
-п»ї#include "comPlex.h"
+#include "comPlex.h"
 
 int Complex::counter;
 int Complex::num;
 double const Complex::pi = 3.1415926536;
 
-Complex::Complex(): real(0), image(0)                                   // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+Complex::Complex(): real(-1), image(-1)                                   // конструктор по умолчанию
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::Complex(int re, int im): real(re), image(im)                   // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
+Complex::Complex(int re, int im): real(re), image(im)                   // конструктор с параметрами
+{
+    objNum = ++num;                      
+    counter++;
+}
+
+Complex::Complex(Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::Complex(Complex &obj): real(obj.real), image(obj.image)        // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
-{
-    objNum = ++num;
-    counter++;
-}
-
-Complex::~Complex()                                                     // РґРµСЃС‚СЂСѓРєС‚РѕСЂ
+Complex::~Complex()                                                     // деструктор
 {
     --counter;
-    cout<<"Р”Р•РЎРўР РЈРљРўРћР : id"<<objNum<<" СѓРґР°Р»РµРЅ."<<endl;
+    cout<<"Объект "<<objNum<<" удалён."<<endl;
     Sleep(250);
 }
 
-int Complex::getCounter()                                               // РІРѕР·РІСЂР°С‚ СЃС‡С‘С‚С‡РёРєР°
+int Complex::getCounter()                                               // вернуть количество объектов
 {
     return counter;
 }
 
-int Complex::getNum()
+int Complex::getNum()                                                   // вернуть номер объекта
 {
     return objNum;
 }
 
-void Complex::edit()                                                    // СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РѕР±СЉРµРєС‚Р°
+void Complex::edit()                                                    // редактор объекта
 {
-    cout<<endl<<"РґРµР№СЃС‚РІРёС‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ Z: real= "<<endl;
+    cout<<endl<<"действительная часть: real= "<<endl;
     cin>>real;
-    cout<<"РјРЅРёРјР°СЏ С‡Р°СЃС‚СЊ Z: image= "<<endl;
+    cout<<"мнимая часть: image= "<<endl;
     cin>>image;
     return;
 }
 
-void Complex::del(Complex* &obj)                            // СѓРґР°Р»РµРЅРёРµ РѕР±СЉРµРєС‚Р°
+void Complex::del(Complex* &obj)                                        // удаление объекта
 {
     if (obj!=NULL)
     {
@@ -58,7 +58,7 @@ void Complex::del(Complex* &obj)                            // СѓРґР°Р»РµРЅРёРµ 
     return;
 }
 
-void Complex::showObject()                                  // РІС‹РІРѕРґ РѕР±СЉРµРєС‚РѕРІ
+void Complex::showObject()                                                    // вывод объекта
 {
     cout<<"Z="<<real<<"+"<<image<<"*i"<<"\t"<<"|Z|="<<mod()<<"\t";
     if (arg()!=0)
@@ -68,12 +68,12 @@ void Complex::showObject()                                  // РІС‹РІРѕРґ РѕР±СЉ
     return;
 }
 
-double Complex::mod()                                       // РјРѕРґСѓР»СЊ
+double Complex::mod()                                                   // модуль |Z|
 {
     return sqrt(real*real+image*image);
 }
 
-double Complex::arg()                                       // Р°СЂРіСѓРјРµРЅС‚
+double Complex::arg()                                                   // аргумент arg Z
 {
     if (real>0) return atan(image/real);
     if (real<0)
@@ -90,52 +90,52 @@ double Complex::arg()                                       // Р°СЂРіСѓРјРµРЅС‚
     return 0;
 }
 
-Complex& Complex::operator++()                                                          // РїСЂРµС„РёРєСЃРЅС‹Р№ ++РёРЅРєСЂРµРјРµРЅС‚
+Complex& Complex::operator++()                                                          // ++Complex
 {
     real++;
     image++;
     return *this;
 }
 
-Complex Complex::operator++(int)                                                        // РїРѕСЃС‚С„РёРєСЃРЅС‹Р№ РёРЅРєСЂРµРјРµРЅС‚++
+Complex Complex::operator++(int)                                                        // Complex++
 {
     Complex temp = *this;
     ++*this;
     return temp;
 }
 
-Complex& Complex::operator--()                                                          // РїСЂРµС„РёРєСЃРЅС‹Р№ --РґРµРєСЂРµРјРµРЅС‚
+Complex& Complex::operator--()                                                          // --Complex
 {
     real--;
     image--;
     return *this;
 }
 
-Complex Complex::operator--(int)                                                        // РїРѕСЃС‚С„РёРєСЃРЅС‹Р№ РґРµРєСЂРµРјРµРЅС‚--
+Complex Complex::operator--(int)                                                        // Complex--
 {
     Complex temp = *this;
     --*this;
     return temp;
 }
 
-Complex Complex::operator+(Complex &obj)                                                // Р±РёРЅР°СЂРЅС‹Р№ + РїР»СЋСЃ
+Complex Complex::operator+(Complex &obj)                                                // Complex + Complex
 {
-    return Complex(real+obj.real, image+obj.image);
+    return new &Complex(real+obj.real, image+obj.image);
 }
 
-Complex Complex::operator-(Complex &obj)                                                // Р±РёРЅР°СЂРЅС‹Р№ - РјРёРЅСѓСЃ
+Complex Complex::operator-(Complex &obj)                                                // Complex - Complex
 {
     return Complex(real-obj.real, image-obj.image);
 }
 
-bool Complex::operator==(Complex objectRight)                                           // РїСЂРѕРІРµСЂРєР° РЅР° == СЂР°РІРµРЅСЃС‚РІРѕ
+bool Complex::operator==(Complex objectRight)                                           // Complex == Complex
 {
     return ((this->real==objectRight.real)&&(this->image==objectRight.image));
 }
 
-Complex &Complex::operator=(Complex &objectRight)                                       // РїСЂРёСЃРІР°РёРІР°РЅРёРµ =
+Complex &Complex::operator=(Complex &objectRight)                                       // Complex = Complex
 {
-    if (&objectRight==this) 
+    if (&objectRight==this)
         return *this;
     this->real = objectRight.real;
     this->image = objectRight.image;
@@ -150,10 +150,10 @@ ostream & operator << (ostream &out, Complex &obj)                              
 
 istream & operator >> (istream &in, Complex &obj)                                       // cin>>
 {
-    cout<<"РћР±СЉРµРєС‚ "<<obj.getNum()<<":"<<endl
-        <<"РґРµР№СЃС‚РІРёС‚РµР»СЊРЅР°СЏ С‡Р°СЃС‚СЊ real = ";
+    cout<<"Создаём "<<obj.getNum()<<"-й объект:"<<endl
+        <<"введите real = ";
     in>>obj.real;
-    cout<<"РјРЅРёРјР°СЏ С‡Р°СЃС‚СЊ image =";
+    cout<<"введите image =";
     in>>obj.image;
 	return in;
 }
