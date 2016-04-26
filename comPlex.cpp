@@ -4,23 +4,23 @@ int Complex::counter;
 int Complex::num;
 double const Complex::pi = 3.1415926536;
 
-Complex::Complex(): real(-1), image(-1)                             	// конструктор по умолчанию
+Complex::Complex(): real(-1.), image(-1.)                             	// конструктор по умолчанию
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::Complex(int re, int im): real(re), image(im)                   // конструктор с параметрами
+Complex::Complex(double re, double im): real(re), image(im)             // конструктор с параметрами
 {
     objNum = ++num;                      
     counter++;
 }
 
-Complex::Complex(Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
-{
-    objNum = ++num;
-    counter++;
-}
+//Complex::Complex(const Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
+//{
+//    objNum = ++num;
+//    counter++;
+//}
 
 Complex::~Complex()                                                     // деструктор
 {
@@ -118,29 +118,54 @@ Complex Complex::operator--(int)                                        // Compl
     return temp;
 }
 
-Complex Complex::operator+(Complex &obj)                                // Complex + Complex
+Complex Complex::operator+(Complex Right)                                // Complex + Complex
 {
-    Complex* res = new Complex(real+obj.real, image+obj.image);
-    return *res;
+    Complex temp;
+    temp.real = real+Right.real;
+    temp.image = image+Right.image;
+    return temp;
 }
 
-Complex Complex::operator-(Complex &obj)                                // Complex - Complex
+//Complex Complex::operator+(const Complex Right)                                // Complex + Complex
+//{
+//    Complex temp;
+//    temp.real = real+Right.real;
+//    temp.image = image+Right.image;
+//    return temp;
+//}
+
+Complex Complex::operator-(Complex Right)                                // Complex - Complex
 {
-    Complex* res = new Complex(real-obj.real, image-obj.image);
-    return *res;
+    Complex temp;
+    temp.real = real-Right.real;
+    temp.image = image-Right.image;
+    return temp;
 }
 
-bool Complex::operator==(Complex objectRight)                           // Complex == Complex
+//Complex Complex::operator-(const Complex Right)                                // Complex - Complex
+//{
+//    Complex temp;
+//    temp.real = real-Right.real;
+//    temp.image = image-Right.image;
+//    return temp;
+//}
+
+bool Complex::operator==(Complex Right)                           // Complex == Complex
 {
-    return ((this->real==objectRight.real)&&(this->image==objectRight.image));
+    return ((this->real==Right.real)&&(this->image==Right.image));
 }
 
-Complex &Complex::operator=(Complex objectRight)                     	// Complex = Complex
+bool Complex::operator!=(Complex Right)                           // Complex == Complex
 {
-    if (&objectRight==this)
+    return ((this->real!=Right.real)||(this->image!=Right.image));
+}
+
+Complex &Complex::operator=(const Complex Right)                     	// Complex = Complex
+{
+    if (&Right==this)
         return *this;
-    this->real = objectRight.real;
-    this->image = objectRight.image;
+    this->real = Right.real;
+    this->image = Right.image;
     return *this;
 }
 
@@ -150,10 +175,15 @@ ostream & operator << (ostream &out, Complex &obj)                    	// cout<<
 	return out;
 }
 
+ostream & operator << (ostream &out, const Complex &obj)                    	// cout<<
+{
+    out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
+    return out;
+}
+
 istream & operator >> (istream &in, Complex &obj)                    	// cin>>
 {
-    cout<<"Создаём "<<obj.getNum()<<"-й объект:"<<endl
-        <<"введите real = ";
+    cout<<"введите real = ";
     in>>obj.real;
     cout<<"введите image =";
     in>>obj.image;

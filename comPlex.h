@@ -7,33 +7,37 @@ using namespace std;
 
 class Complex
 {
-    static double const pi ;
-    static int counter;
-    static int num;
+    const double static pi ;
+    int static counter;
+    int static num;
     int objNum;
     double real, image;
 public:
     Complex();
-    Complex(int, int);
-    Complex(Complex &);
+    Complex(double, double);
+    //inline Complex(const Complex &);
 	~Complex();
 	double mod();
 	double arg();
     void showObject();
-	static int getCounter();
+	int static getCounter();
     int getNum();
     /*-----------------------------------------------------*/
-	static void del(Complex* &);
+	void static del(Complex* &);
     void edit();
 	/*-----------------------------------------------------*/
     Complex &operator++();
     Complex operator++(int);
     Complex &operator--();
     Complex operator--(int);
-    Complex operator+(Complex &);  
-    Complex operator-(Complex &);
-    Complex &operator=(Complex );
+    Complex operator+(Complex);  
+    //Complex operator+(const Complex);
+    Complex operator-(Complex);
+    //Complex operator-(const Complex);
+    Complex &operator=(Complex);
     bool operator==(Complex);
+    bool Complex::operator!=(Complex);
     friend ostream & operator << (ostream &out, Complex &obj);
     friend istream & operator >> (istream &in, Complex &obj);
+    friend ostream & operator << (ostream &out, const Complex &obj);
 };

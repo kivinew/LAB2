@@ -10,3 +10,10 @@
 *.idb
 *.filters
 *.TMP
+*.user
+*.opendb
+*.db
+*.sln
+*.suo
+*.ilk
+*.exe
