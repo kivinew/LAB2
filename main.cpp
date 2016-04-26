@@ -21,8 +21,8 @@ int menu();
 void paste(Complex);
 void showTable(Complex** &, int);
 void deleteAll(Complex** &, int);
-Complex add(Complex**, int);
-Complex sub(Complex**, int);
+void add(Complex**, int);
+void sub(Complex**, int);
 Complex mul(Complex**, int);
 Complex div(Complex**, int);
 
@@ -46,8 +46,8 @@ int main()
         gotoxy(40, 3);
         cout<<*model<<endl;
         gotoxy(0, 0);
-        showTable();
-        *(arrPointers+arrSize) = new Complex(0,0);              // вызов конструктора с параметрами инициализации
+        showTable(arrPointers, arrSize);
+        *(arrPointers+arrSize) = new Complex(0,0);              	// вызов конструктора с параметрами инициализации
         cin>>*arrPointers[arrSize];
         cout<<*arrPointers[arrSize]<<endl;
         system("cls");
@@ -57,10 +57,10 @@ int main()
     return 0;
 }
 
-int menu()                                                                  // меню LAB2
+int menu()                                                         		// меню LAB2
 {
     system("cls");
-    showTable();
+    showTable(arrPointers, arrSize);
     gotoxy(20,15);
     cout<<*model<<endl<<endl
         <<"1 - сложение комплексных чисел"<<endl
@@ -79,7 +79,7 @@ int menu()                                                                  // м
     case '1':
 		cout << "Выберите элемент для сложения с эталоном ";
 		cin >> number;
-        add();
+        add(arrPointers, number);
         break;
     case '2':
 		cout << "Выберите элемент для вычитания от эталона ";
@@ -111,7 +111,7 @@ int menu()                                                                  // м
     return TRUE;
 }
 
-void showTable(Complex** arr, int size)                                 // вывод таблицы объектов
+void showTable(Complex** arr, int size)                          		// вывод таблицы объектов
 {
     cout<<"Объект :"<<endl;
     for (int i = 0; i<size; i++)
@@ -126,8 +126,35 @@ void showTable(Complex** arr, int size)                                 // вывод
     }
 }
 
-void deleteAll(Complex** &arr, int size)                                // удаление массива
+void paste(Complex obj, int num)
 {
+    *arrResult[num]= obj;
+}
+
+void add(Complex** arr, int num)
+{
+	*arrResult[num] = *model + *(arr[num]);
+}
+
+//void sub(Complex** arr, int num)
+//{
+//	*arrResult[num] = *model - *(arr[num]);
+//}
+
+//Complex mul(Complex** arr, int num)
+//{
+//	Complex result = *model * *(arr[num]);
+//	return result;
+//}
+//
+//Complex div(Complex** arr, int num)
+//{
+//	Complex result = *model * *(arr[num])
+//	return result;
+//}
+
+void deleteAll(Complex** &arr, int size)                          		// удаление массива
+{    
     for (int i = 0; i<size; i++)
     {
         Complex::del(arr[i]);                                    	    // удаление объектов массива
@@ -136,35 +163,6 @@ void deleteAll(Complex** &arr, int size)                                // удале
     cout<<"Массив удалён"<<endl;
     _getch();
     return;
-}
-
-void paste(Complex)
-{
-    arrResult[];
-}
-
-Complex add(Complex** arr, int number)
-{
-	Complex result = *model + *(arr[number]);
-	return result;
-}
-
-Complex sub(Complex** arr, int number)
-{
-	Complex result = *model - *(arr[number]);
-	return result;
-}
-
-Complex mul(Complex** arr, int number)
-{
-	Complex result = *model * *(arr[number]);
-	return result;
-}
-
-Complex div(Complex** arr, int number)
-{
-	Complex result = *model * *(arr[number])
-	return result;
 }
 
 void gotoxy(int x, int y)                                           // перевод курсора в положение X,Y

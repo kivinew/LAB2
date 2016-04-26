@@ -4,7 +4,7 @@ int Complex::counter;
 int Complex::num;
 double const Complex::pi = 3.1415926536;
 
-Complex::Complex(): real(-1), image(-1)                                   // конструктор по умолчанию
+Complex::Complex(): real(-1), image(-1)                             	// конструктор по умолчанию
 {
     objNum = ++num;
     counter++;
@@ -58,7 +58,7 @@ void Complex::del(Complex* &obj)                                        // удале
     return;
 }
 
-void Complex::showObject()                                                    // вывод объекта
+void Complex::showObject()                                              // вывод объекта
 {
     cout<<"Z="<<real<<"+"<<image<<"*i"<<"\t"<<"|Z|="<<mod()<<"\t";
     if (arg()!=0)
@@ -90,50 +90,52 @@ double Complex::arg()                                                   // аргум
     return 0;
 }
 
-Complex& Complex::operator++()                                                          // ++Complex
+Complex& Complex::operator++()                                          // ++Complex
 {
     real++;
     image++;
     return *this;
 }
 
-Complex Complex::operator++(int)                                                        // Complex++
+Complex Complex::operator++(int)                                        // Complex++
 {
-    Complex temp = *this;
-    ++*this;
-    return temp;
+Complex temp = *this;
+++*this;
+return temp;
 }
 
-Complex& Complex::operator--()                                                          // --Complex
+Complex& Complex::operator--()                                          // --Complex
 {
     real--;
     image--;
     return *this;
 }
 
-Complex Complex::operator--(int)                                                        // Complex--
+Complex Complex::operator--(int)                                        // Complex--
 {
     Complex temp = *this;
     --*this;
     return temp;
 }
 
-Complex Complex::operator+(Complex &obj)                                                // Complex + Complex
+Complex Complex::operator+(Complex &obj)                                // Complex + Complex
 {
-    return new &Complex(real+obj.real, image+obj.image);
+    Complex* res = new Complex(real+obj.real, image+obj.image);
+    return *res;
 }
 
-Complex Complex::operator-(Complex &obj)                                                // Complex - Complex
+Complex Complex::operator-(Complex &obj)                                // Complex - Complex
 {
-    return Complex(real-obj.real, image-obj.image);
+    Complex* res = new Complex(real-obj.real, image-obj.image);
+    return *res;
 }
 
-bool Complex::operator==(Complex objectRight)                                           // Complex == Complex
+bool Complex::operator==(Complex objectRight)                           // Complex == Complex
 {
     return ((this->real==objectRight.real)&&(this->image==objectRight.image));
 }
 
-Complex &Complex::operator=(Complex &objectRight)                                       // Complex = Complex
+Complex &Complex::operator=(Complex objectRight)                     	// Complex = Complex
 {
     if (&objectRight==this)
         return *this;
@@ -142,13 +144,13 @@ Complex &Complex::operator=(Complex &objectRight)                               
     return *this;
 }
 
-ostream & operator << (ostream &out, Complex &obj)                                      // cout<<
+ostream & operator << (ostream &out, Complex &obj)                    	// cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
 	return out;
 }
 
-istream & operator >> (istream &in, Complex &obj)                                       // cin>>
+istream & operator >> (istream &in, Complex &obj)                    	// cin>>
 {
     cout<<"Создаём "<<obj.getNum()<<"-й объект:"<<endl
         <<"введите real = ";

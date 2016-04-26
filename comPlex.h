@@ -32,7 +32,7 @@ public:
     Complex operator--(int);
     Complex operator+(Complex &);  
     Complex operator-(Complex &);
-    Complex &operator=(Complex &);
+    Complex &operator=(Complex );
     bool operator==(Complex);
     friend ostream & operator << (ostream &out, Complex &obj);
     friend istream & operator >> (istream &in, Complex &obj);
