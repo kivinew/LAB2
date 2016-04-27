@@ -15,7 +15,7 @@ class Complex
 public:
     Complex();
     Complex(double, double);
-    //inline Complex(const Complex &);
+    inline Complex(const Complex &);
 	~Complex();
 	double mod();
 	double arg();
@@ -30,13 +30,16 @@ public:
     Complex operator++(int);
     Complex &operator--();
     Complex operator--(int);
-    Complex operator+(Complex);
-    Complex operator-(Complex);
+    Complex operator+(Complex&);
+    Complex operator-(Complex&);
+    Complex operator+(const Complex&);
+    Complex operator-(const Complex&);
     Complex operator - ();
     Complex &operator=(Complex);
     bool operator==(Complex);
     bool Complex::operator!=(Complex);
     bool Complex::operator < (Complex &);
+    bool Complex::operator < (const Complex &);
     bool Complex::operator > (Complex &);
     operator int();
     Complex & operator() (int, int);

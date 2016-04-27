@@ -24,18 +24,20 @@
 
 void gotoxy(int, int);
 int menu();
-void paste(Complex);
 void showTable(int, int, Complex**&);
-void deleteAll(Complex** &, int);
-void add(Complex** &, int);
+void deleteArr(Complex** &, int);
+void add(Complex** , int);
 void sub(Complex**, int);
+void inc(Complex**, int);
+void dec(Complex**, int);
+void compare(Complex**, int);
 //Complex mul(Complex**, int);
 //Complex div(Complex**, int);
 
-const Complex model(1.5,2.5);          // константный объект класса
-Complex** arrPointers;                                              // объявление массива исходных объектов
-Complex** arrResult;                                                // объявление массива объектов-результатов
-int arrSize = 5;                                                    // размер таблицы
+const Complex model(1.5,2.5);                               // константный объект класса
+Complex** arrPointers;                                      // объявление массива исходных объектов
+Complex** arrResult;                                        // объявление массива объектов-результатов
+int arrSize = 5;                                            // размер таблицы
 
 int main()
 {
@@ -46,9 +48,9 @@ int main()
 	arrResult = new Complex*[arrSize]();
     for (int i = 0; i<arrSize; i++)                                         // заполнить строки таблицы
     {
-        gotoxy(40, 0);
+        gotoxy(18, 4);
         cout<<model<<endl;
-        showTable(0,0,arrPointers);
+        showTable(0,2,arrPointers);
         *(arrPointers+i) = new Complex(0,0);              	// создаем объект с параметрами инициализации
         cout<<i<<"-й элемент таблицы:"<<endl;
         cin>>*arrPointers[i];
@@ -62,67 +64,84 @@ int main()
     return 0;
 }
 
-int menu()                                                         		// меню LAB2
+int menu()                                                          // меню LAB2
 {
     system("cls");
     gotoxy(0, 0);
-    cout<<"Исходные значения:"<<endl;
-    showTable(0, 1, arrPointers);
-    cout<<endl<<endl<<"Результаты:"<<endl;
-    showTable(0, 7, arrResult);
-    gotoxy(25,2);
+    cout<<"Исходные значения:";
+    showTable(0, 2, arrPointers);
+    gotoxy(40, 0);
+    cout<<"Результаты:";
+    showTable(40, 2, arrResult);
+    gotoxy(22,4);
     cout<<model;
     gotoxy(0, 18);
     cout<<"Выберите операцию для применения к значениям из таблицы:"
-        <<"\t1 - сложение"<<endl
+        <<"\n\t1 - сложение"<<endl
         <<"\t2 - вычитание"<<endl
         <<"\t3 - инкремент"<<endl
         <<"\t4 - декремент"<<endl
-        <<"\t5 - умножение"<<endl
-        <<"\t6 - деление"<<endl
+        <<"\t5 - сравнение"<<endl
+        <<"\t6 - приведение к типу INT"<<endl
         <<"ESC - выход"<<endl;
     while (!_kbhit());
     int choice = _getch();
 
     switch (choice)
     {
-    case '1':
+    case '1':                           // сложение
         for (int i = 0; i<arrSize; i++)
         {
             add(arrPointers, i);
         }
         break;
-    case '2':
+    case '2':                           // вычитание
         for (int i = 0; i<arrSize; i++)
         {
             sub(arrPointers, i);
         }
         break;
-    case '3':
-		
+    case '3':                           // инкремент
+        for (int i = 0; i<arrSize; i++)
+        {
+            inc(arrResult, i);
+        }
         break;
-	case '4':
-		
+	case '4':                           // декремент
+        for (int i = 0; i<arrSize; i++)
+        {
+            dec(arrResult, i);
+        }
         break;
-	case '5':
-		
+	case '5':                           // сравнение
+        for (int i = 0; i<arrSize; i++)
+        {
+            gotoxy(38, 2+i);
+            if (*arrResult[i]==model)
+                cout<<"=";
+            else
+                cout<<(*arrResult[i] < model ? ">" : "<");
+        }
+        _getch();
         break;
-	case '6':
-		
+	case '6':                           // приведение
+        for (int i = 0; i<arrSize; i++)
+        {
+            gotoxy(25, 8+i);
+            cout<<(int)*arrResult[i];
+        }
+        _getch();
         break;
     case ESC:
-        deleteAll(arrPointers, arrSize);
-        deleteAll(arrResult, arrSize);
+        deleteArr(arrPointers, arrSize);
+        deleteArr(arrResult, arrSize);
         return FALSE;
     }
-
-
     return TRUE;
 }
 
 void showTable(int x, int y, Complex** &arr)                            // вывод таблицы объектов
 {
-    cout<<"Объект :"<<endl;
     for (int i = 0; i<arrSize; i++)
     {
         gotoxy(x, y+i);
@@ -136,7 +155,7 @@ void showTable(int x, int y, Complex** &arr)                            // вы�
     }
 }
 
-void add(Complex** &arr, int num)
+void add(Complex** arr, int num)
 {
 	*arrResult[num] = *(arr[num]) + model;
 }
@@ -144,6 +163,16 @@ void add(Complex** &arr, int num)
 void sub(Complex** arr, int num)
 {
 	*arrResult[num] = *(arr[num]) - model;
+}
+
+void inc(Complex** arr, int num)
+{
+    ++*(arr[num]);
+}
+
+void dec(Complex** arr, int num)
+{
+    --*(arr[num]);
 }
 
 //Complex mul(Complex** arr, int num)
@@ -158,15 +187,14 @@ void sub(Complex** arr, int num)
 //	return result;
 //}
 
-void deleteAll(Complex** &arr, int size)                          		// удаление массива
+void deleteArr(Complex** &arr, int size)                          		// удаление массива
 {    
     for (int i = 0; i<size; i++)
     {
         Complex::del(arr[i]);                                    	    // удаление объектов массива
     }
     delete[] arr;                                                       // удаление массива
-    cout<<"Массив удалён"<<endl;
-    _getch();
+    cout<<"---------------"<<endl;
     return;
 }
 
