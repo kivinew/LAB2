@@ -126,14 +126,6 @@ Complex Complex::operator+(Complex Right)                                // Comp
     return temp;
 }
 
-//Complex Complex::operator+(const Complex Right)                                // Complex + Complex
-//{
-//    Complex temp;
-//    temp.real = real+Right.real;
-//    temp.image = image+Right.image;
-//    return temp;
-//}
-
 Complex Complex::operator-(Complex Right)                                // Complex - Complex
 {
     Complex temp;
@@ -142,22 +134,13 @@ Complex Complex::operator-(Complex Right)                                // Comp
     return temp;
 }
 
-//Complex Complex::operator-(const Complex Right)                                // Complex - Complex
-//{
-//    Complex temp;
-//    temp.real = real-Right.real;
-//    temp.image = image-Right.image;
-//    return temp;
-//}
-
-bool Complex::operator==(Complex Right)                           // Complex == Complex
+Complex Complex ::operator - ()                                 // унарный минус
 {
-    return ((this->real==Right.real)&&(this->image==Right.image));
-}
+    Complex temp;
+    temp.real = -real;
+    temp.image = -image;
 
-bool Complex::operator!=(Complex Right)                           // Complex == Complex
-{
-    return ((this->real!=Right.real)||(this->image!=Right.image));
+    return temp;
 }
 
 Complex &Complex::operator=(const Complex Right)                     	// Complex = Complex
@@ -169,23 +152,56 @@ Complex &Complex::operator=(const Complex Right)                     	// Complex
     return *this;
 }
 
+bool Complex::operator==(Complex Right)                           // Complex == Complex
+{
+    return ((this->real==Right.real)&&(this->image==Right.image));
+}
+
+bool Complex::operator!=(Complex Right)                           // Complex == Complex
+{
+    return !(*this==Right);
+}
+
+bool Complex::operator < (Complex &Right)
+{
+    return ((real < Right.real)&&(image < Right.image));
+}
+
+bool Complex::operator > (Complex &Right)
+{
+    return ((real > Right.real)&&(image > Right.image));
+}
+
+Complex:: operator int()
+{
+    return real*image;
+}
+
+Complex & Complex::operator() (int re, int im)
+{
+    real += re;
+    image += im;
+    return *this;
+}
+
 ostream & operator << (ostream &out, Complex &obj)                    	// cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
 	return out;
 }
 
-ostream & operator << (ostream &out, const Complex &obj)                    	// cout<<
-{
-    out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
-    return out;
-}
-
-istream & operator >> (istream &in, Complex &obj)                    	// cin>>
+istream & operator>>(istream &in, Complex &obj)                    	// cin>>
 {
     cout<<"введите real = ";
     in>>obj.real;
     cout<<"введите image =";
     in>>obj.image;
-	return in;
+    return in;
 }
+
+ostream & operator << (ostream &out, const Complex &obj)
+{
+    out<<"Z = "<<obj.real<<" + "<<obj.image<<" * i";
+    return out;
+}
+

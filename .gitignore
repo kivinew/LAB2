@@ -17,3 +17,7 @@
 *.suo
 *.ilk
 *.exe
+*.dll
+*.nupkg
+*.xml
+*.enc
