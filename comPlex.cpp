@@ -12,7 +12,7 @@ Complex::Complex(): real(0.), image(0.)                             	// конструк
 
 Complex::Complex(double re, double im): real(re), image(im)             // конструктор с параметрами
 {
-    objNum = ++num;                      
+    objNum = ++num;
     counter++;
 }
 
@@ -94,9 +94,9 @@ Complex& Complex::operator++()                                          // ++Com
 
 Complex Complex::operator++(int)                                        // Complex++
 {
-Complex temp = *this;
-++*this;
-return temp;
+    Complex temp = *this;
+    ++*this;
+    return temp;
 }
 
 Complex& Complex::operator--()                                          // --Complex
@@ -164,7 +164,9 @@ Complex &Complex::operator = (const Complex Right)                     	// Compl
 
 bool Complex::operator == (Complex Right)                           // Complex == Complex
 {
-    return ((this->real==Right.real)&&(this->image==Right.image));
+    double tLeft = sqrt(real*real+image*image);
+    double tRight = sqrt(Right.real*Right.real+Right.image*Right.image);
+    return (tLeft==tRight);
 }
 
 bool Complex::operator != (Complex Right)                           // Complex == Complex
@@ -174,22 +176,21 @@ bool Complex::operator != (Complex Right)                           // Complex =
 
 bool Complex::operator < (Complex &Right)
 {
-    return ((real < Right.real)&&(image < Right.image));
+    double tLeft = sqrt(real*real+image*image);
+    double tRight = sqrt(Right.real*Right.real+Right.image*Right.image);
+    return (tLeft<tRight);
 }
 
 bool Complex::operator < (const Complex &Right)
 {
-    return ((real < Right.real)&&(image < Right.image));
+    double tLeft = sqrt(real*real+image*image);
+    double tRight = sqrt(Right.real*Right.real+Right.image*Right.image);
+    return (tLeft<tRight);
 }
 
 bool Complex::operator > (Complex &Right)
 {
     return Right<*this;
-}
-
-Complex:: operator int()
-{
-    return (int)sqrt(real*real+image*image);
 }
 
 Complex:: operator int()
@@ -207,7 +208,7 @@ Complex & Complex::operator() (int re, int im)
 ostream & operator << (ostream &out, Complex &obj)                    	// cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<"i      ";
-	return out;
+    return out;
 }
 
 ostream & operator << (ostream &out, const Complex &obj)
@@ -216,7 +217,7 @@ ostream & operator << (ostream &out, const Complex &obj)
     return out;
 }
 
-istream & operator >> (istream &in, Complex &obj)                    	// cin>>
+istream & operator>>(istream &in, Complex &obj)                    	// cin>>
 {
     cout<<"введите real =     \b\b\b\b";
     in>>obj.real;

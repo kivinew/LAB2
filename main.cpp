@@ -1,5 +1,5 @@
 ﻿/* Перегрузка операторов.
-Программу, разработанную в лабораторной работе № 1, модифицировать таким образом, 
+Программу, разработанную в лабораторной работе № 1, модифицировать таким образом,
 чтобы появилась возможность применять к объектам класса следующие операторы:
 ​ Инкремент, декремент (можно только одну из префиксной и постфиксной форм).
 ​ Сложение объектов класса.
@@ -26,7 +26,7 @@ void gotoxy(int, int);
 int menu();
 void showTable(int, int, Complex**&);
 void deleteArr(Complex** &, int);
-void add(Complex** , int);
+void add(Complex**, int);
 void sub(Complex**, int);
 void inc(Complex**, int);
 void dec(Complex**, int);
@@ -34,7 +34,7 @@ void compare(Complex**, int);
 //Complex mul(Complex**, int);
 //Complex div(Complex**, int);
 
-const Complex model(1.5,2.5);                               // константный объект класса
+const Complex model(1.5, 2.5);                               // константный объект класса
 Complex** arrPointers;                                      // объявление массива исходных объектов
 Complex** arrResult;                                        // объявление массива объектов-результатов
 int arrSize = 5;                                            // размер таблицы
@@ -45,13 +45,13 @@ int main()
     SetConsoleTitleA("LAB2: Complex numbers");
     system("cls");
     arrPointers = new Complex*[arrSize]();                                  // определение массива
-	arrResult = new Complex*[arrSize]();
+    arrResult = new Complex*[arrSize]();
     for (int i = 0; i<arrSize; i++)                                         // заполнить строки таблицы
     {
         gotoxy(18, 4);
         cout<<model<<endl;
-        showTable(0,2,arrPointers);
-        *(arrPointers+i) = new Complex(0,0);              	// создаем объект с параметрами инициализации
+        showTable(0, 2, arrPointers);
+        *(arrPointers+i) = new Complex(0, 0);              	// создаем объект с параметрами инициализации
         cout<<i<<"-й элемент таблицы:"<<endl;
         cin>>*arrPointers[i];
         cout<<*arrPointers[i]<<endl;
@@ -60,7 +60,7 @@ int main()
     {
         *(arrResult+i) = new Complex();
     }
-	while (menu());
+    while (menu());
     return 0;
 }
 
@@ -73,61 +73,64 @@ int menu()                                                          // меню 
     gotoxy(40, 0);
     cout<<"Результаты:";
     showTable(40, 2, arrResult);
-    gotoxy(22,4);
+    gotoxy(20, 4);
     cout<<model;
     gotoxy(0, 18);
     cout<<"Выберите операцию для применения к значениям из таблицы:"
-        <<"\n\t1 - сложение"<<endl
-        <<"\t2 - вычитание"<<endl
-        <<"\t3 - инкремент"<<endl
-        <<"\t4 - декремент"<<endl
+        <<"\n\t1 - вычитание"<<endl
+        <<"\t2 - сложение"<<endl
+        <<"\t3 - декремент"<<endl
+        <<"\t4 - инкремент"<<endl
         <<"\t5 - сравнение"<<endl
         <<"\t6 - приведение к типу INT"<<endl
-        <<"ESC - выход"<<endl;
+        <<"\tESC - выход"<<endl;
     while (!_kbhit());
     int choice = _getch();
 
     switch (choice)
     {
-    case '1':                           // сложение
+    case '2':                           // сложение
         for (int i = 0; i<arrSize; i++)
         {
             add(arrPointers, i);
         }
         break;
-    case '2':                           // вычитание
+    case '1':                           // вычитание
         for (int i = 0; i<arrSize; i++)
         {
             sub(arrPointers, i);
         }
         break;
-    case '3':                           // инкремент
+    case '4':                           // инкремент
         for (int i = 0; i<arrSize; i++)
         {
             inc(arrResult, i);
         }
         break;
-	case '4':                           // декремент
+    case '3':                           // декремент
         for (int i = 0; i<arrSize; i++)
         {
             dec(arrResult, i);
         }
         break;
-	case '5':                           // сравнение
+    case '5':                           // сравнение
         for (int i = 0; i<arrSize; i++)
         {
-            gotoxy(38, 2+i);
+            gotoxy(37, 2+i);
             if (*arrResult[i]==model)
                 cout<<"=";
             else
-                cout<<(*arrResult[i] < model ? ">" : "<");
+            {
+                Complex temp = model;
+                cout<<((int)*arrResult[i]<(int)temp ? ">" : "<");
+            }
         }
         _getch();
         break;
-	case '6':                           // приведение
+    case '6':                           // приведение
         for (int i = 0; i<arrSize; i++)
         {
-            gotoxy(25, 8+i);
+            gotoxy(65, 2+i);
             cout<<(int)*arrResult[i];
         }
         _getch();
@@ -157,12 +160,12 @@ void showTable(int x, int y, Complex** &arr)                            // вы�
 
 void add(Complex** arr, int num)
 {
-	*arrResult[num] = *(arr[num]) + model;
+    *arrResult[num] = *(arr[num])+model;
 }
 
 void sub(Complex** arr, int num)
 {
-	*arrResult[num] = *(arr[num]) - model;
+    *arrResult[num] = *(arr[num])-model;
 }
 
 void inc(Complex** arr, int num)
@@ -188,7 +191,7 @@ void dec(Complex** arr, int num)
 //}
 
 void deleteArr(Complex** &arr, int size)                          		// удаление массива
-{    
+{
     for (int i = 0; i<size; i++)
     {
         Complex::del(arr[i]);                                    	    // удаление объектов массива
