@@ -1,4 +1,4 @@
-﻿/* Перегрузка операторов.
+/* Перегрузка операторов.
 Программу, разработанную в лабораторной работе № 1, модифицировать таким образом,
 чтобы появилась возможность применять к объектам класса следующие операторы:
 ​ Инкремент, декремент (можно только одну из префиксной и постфиксной форм).
@@ -7,9 +7,9 @@
 ​ Оператор присваивания.
 ​ Оператор приведения к типу int (или другому численному).
 ​ Операторы ввода и вывода в поток.
-*/
+ */
 
-#include "comPlex.h"
+#include "Complex.h"
 #include <locale>
 #define ESC         27
 #define SPACEBAR    32
@@ -30,11 +30,10 @@ void add(Complex**, int);
 void sub(Complex**, int);
 void inc(Complex**, int);
 void dec(Complex**, int);
-void compare(Complex**, int);
 //Complex mul(Complex**, int);
 //Complex div(Complex**, int);
 
-const Complex model(1.5, 2.5);                               // константный объект класса
+const Complex model(1.5, 2.5);                              // константный объект класса
 Complex** arrPointers;                                      // объявление массива исходных объектов
 Complex** arrResult;                                        // объявление массива объектов-результатов
 int arrSize = 5;                                            // размер таблицы
@@ -44,14 +43,14 @@ int main()
     setlocale(LC_ALL, "Ru");
     SetConsoleTitleA("LAB2: Complex numbers");
     system("cls");
-    arrPointers = new Complex*[arrSize]();                                  // определение массива
+    arrPointers = new Complex*[arrSize]();                  // определение массива
     arrResult = new Complex*[arrSize]();
-    for (int i = 0; i<arrSize; i++)                                         // заполнить строки таблицы
+    for (int i = 0; i<arrSize; i++)                         // заполнить строки таблицы
     {
         gotoxy(18, 4);
         cout<<model<<endl;
         showTable(0, 2, arrPointers);
-        *(arrPointers+i) = new Complex(0, 0);              	// создаем объект с параметрами инициализации
+        *(arrPointers+i) = new Complex(0, 0);               // создаем объект с параметрами инициализации
         cout<<i<<"-й элемент таблицы:"<<endl;
         cin>>*arrPointers[i];
         cout<<*arrPointers[i]<<endl;
@@ -64,7 +63,7 @@ int main()
     return 0;
 }
 
-int menu()                                                          // меню LAB2
+int menu()                                                  // меню LAB2
 {
     system("cls");
     gotoxy(0, 0);

@@ -4,46 +4,46 @@ int Complex::counter;
 int Complex::num;
 double const Complex::pi = 3.1415926536;
 
-Complex::Complex(): real(0.), image(0.)                             	// конструктор по умолчанию
+Complex::Complex(): real(0.), image(0.)                                         // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::Complex(double re, double im): real(re), image(im)             // конструктор с параметрами
+Complex::Complex(double re, double im): real(re), image(im)                     // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::Complex(const Complex &obj): real(obj.real), image(obj.image)        // конструктор копирования
+Complex::Complex(const Complex &obj): real(obj.real), image(obj.image)          // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 {
     objNum = ++num;
     counter++;
 }
 
-Complex::~Complex()                                                     // деструктор
+Complex::~Complex()                                                             // РґРµСЃС‚СЂСѓРєС‚РѕСЂ
 {
     counter--;
 }
 
-int Complex::getCounter()                                               // вернуть количество объектов
+int Complex::getCounter()                                                       // РІРѕР·РІСЂР°С‚ СЃС‡С‘С‚С‡РёРєР°
 {
     return counter;
 }
 
-int Complex::getNum()                                                   // вернуть номер объекта
+int Complex::getNum()                                                   // ГўГҐГ°Г­ГіГІГј Г­Г®Г¬ГҐГ° Г®ГЎГєГҐГЄГІГ 
 {
     return objNum;
 }
 
-void Complex::edit()                                                    // редактор объекта
+void Complex::edit()                                                    // Г°ГҐГ¤Г ГЄГІГ®Г° Г®ГЎГєГҐГЄГІГ 
 {
     cin>>*this;
     return;
 }
 
-void Complex::del(Complex* &obj)                                        // удаление объекта
+void Complex::del(Complex* &obj)                                        // ГіГ¤Г Г«ГҐГ­ГЁГҐ Г®ГЎГєГҐГЄГІГ 
 {
     if (obj!=NULL)
     {
@@ -53,7 +53,7 @@ void Complex::del(Complex* &obj)                                        // удале
     return;
 }
 
-void Complex::showObject()                                              // вывод объекта
+void Complex::showObject()                                              // ГўГ»ГўГ®Г¤ Г®ГЎГєГҐГЄГІГ 
 {
     cout<<"Z="<<real<<"+"<<image<<"*i"<<"\t"<<"|Z|="<<mod()<<"\t";
     if (arg()!=0)
@@ -63,12 +63,12 @@ void Complex::showObject()                                              // вывод
     return;
 }
 
-double Complex::mod()                                                   // модуль |Z|
+double Complex::mod()                                                   // Г¬Г®Г¤ГіГ«Гј |Z|
 {
     return sqrt(real*real+image*image);
 }
 
-double Complex::arg()                                                   // аргумент arg Z
+double Complex::arg()                                                   // Г Г°ГЈГіГ¬ГҐГ­ГІ arg Z
 {
     if (real>0) return atan(image/real);
     if (real<0)
@@ -145,7 +145,7 @@ Complex Complex::operator-(const Complex& Right)                                
     return temp;
 }
 
-Complex Complex ::operator - ()                                 // унарный минус
+Complex Complex ::operator - ()                                 // СѓРЅР°СЂРЅС‹Р№ РјРёРЅСѓСЃ
 {
     Complex temp;
     temp.real = -real;
@@ -153,7 +153,7 @@ Complex Complex ::operator - ()                                 // унарный минус
     return temp;
 }
 
-Complex &Complex::operator = (const Complex Right)                     	// Complex = Complex
+Complex &Complex::operator = (const Complex Right)              // Complex = Complex
 {
     if (&Right==this)
         return *this;
@@ -162,14 +162,14 @@ Complex &Complex::operator = (const Complex Right)                     	// Compl
     return *this;
 }
 
-bool Complex::operator == (Complex Right)                           // Complex == Complex
+bool Complex::operator == (Complex Right)                       // Complex == Complex
 {
     double tLeft = sqrt(real*real+image*image);
     double tRight = sqrt(Right.real*Right.real+Right.image*Right.image);
     return (tLeft==tRight);
 }
 
-bool Complex::operator != (Complex Right)                           // Complex == Complex
+bool Complex::operator != (Complex Right)                       // Complex == Complex
 {
     return !(*this==Right);
 }
@@ -205,7 +205,7 @@ Complex & Complex::operator() (int re, int im)
     return *this;
 }
 
-ostream & operator << (ostream &out, Complex &obj)                    	// cout<<
+ostream & operator << (ostream &out, Complex &obj)                              // cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<"i      ";
     return out;
@@ -217,11 +217,11 @@ ostream & operator << (ostream &out, const Complex &obj)
     return out;
 }
 
-istream & operator>>(istream &in, Complex &obj)                    	// cin>>
+istream & operator>>(istream &in, Complex &obj)                                 // cin>>
 {
-    cout<<"введите real =     \b\b\b\b";
+    cout<<"ГўГўГҐГ¤ГЁГІГҐ real =     \b\b\b\b";
     in>>obj.real;
-    cout<<"введите image =     \b\b\b\b";
+    cout<<"ГўГўГҐГ¤ГЁГІГҐ image =     \b\b\b\b";
     in>>obj.image;
     return in;
 }

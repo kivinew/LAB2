@@ -5,7 +5,7 @@
 #include <Windows.h>
 using namespace std;
 
-class Complex
+class Complex:
 {
     const double static pi;
     int static counter;
@@ -15,7 +15,7 @@ class Complex
 public:
     Complex();
     Complex(double, double);
-    inline Complex(const Complex &);
+    Complex(const Complex &);
     ~Complex();
     double mod();
     double arg();
@@ -37,10 +37,10 @@ public:
     Complex operator - ();
     Complex &operator=(Complex);
     bool operator==(Complex);
-    bool Complex::operator!=(Complex);
-    bool Complex::operator < (Complex &);
-    bool Complex::operator < (const Complex &);
-    bool Complex::operator > (Complex &);
+    bool operator!=(Complex);
+    bool operator < (Complex &);
+    bool operator < (const Complex &);
+    bool operator > (Complex &);
     operator int();
     Complex & operator() (int, int);
     friend ostream & operator << (ostream &out, Complex &obj);
