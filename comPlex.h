@@ -1,3 +1,4 @@
+/* Перегрузка операторов.*/
 #pragma once
 #include <iostream>
 #include <conio.h>
@@ -5,7 +6,7 @@
 #include <Windows.h>
 using namespace std;
 
-class Complex:
+class Complex
 {
     const double static pi;
     int static counter;

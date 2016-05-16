@@ -30,8 +30,6 @@ void add(Complex**, int);
 void sub(Complex**, int);
 void inc(Complex**, int);
 void dec(Complex**, int);
-//Complex mul(Complex**, int);
-//Complex div(Complex**, int);
 
 const Complex model(1.5, 2.5);                              // константный объект класса
 Complex** arrPointers;                                      // объявление массива исходных объектов
@@ -130,7 +128,7 @@ int menu()                                                  // меню LAB2
         for (int i = 0; i<arrSize; i++)
         {
             gotoxy(65, 2+i);
-            cout<<(int)*arrResult[i];
+            cout<<"(int)Complex = "<<(int)*arrResult[i];
         }
         _getch();
         break;
@@ -177,18 +175,6 @@ void dec(Complex** arr, int num)
     --*(arr[num]);
 }
 
-//Complex mul(Complex** arr, int num)
-//{
-//	Complex result = *model * *(arr[num]);
-//	return result;
-//}
-//
-//Complex div(Complex** arr, int num)
-//{
-//	Complex result = *model * *(arr[num])
-//	return result;
-//}
-
 void deleteArr(Complex** &arr, int size)                          		// удаление массива
 {
     for (int i = 0; i<size; i++)
@@ -200,7 +186,7 @@ void deleteArr(Complex** &arr, int size)                          		// удал�
     return;
 }
 
-void gotoxy(int x, int y)                                           // перевод курсора в положение X,Y
+void gotoxy(int x, int y)                                           	// перевод курсора в положение X,Y
 {
     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coord;
