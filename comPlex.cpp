@@ -220,9 +220,9 @@ ostream & operator << (ostream &out, const Complex &obj)
 
 istream & operator>>(istream &in, Complex &obj)                                 // cin>>
 {
-    cout<<"ââåäèòå real =     \b\b\b\b";
+    cout<<"Введите real =     \b\b\b\b";
     in>>obj.real;
-    cout<<"ââåäèòå image =     \b\b\b\b";
+    cout<<"Введите image =     \b\b\b\b";
     in>>obj.image;
     return in;
 }
