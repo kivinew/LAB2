@@ -1,4 +1,4 @@
-/* Перегрузка операторов.*/
+﻿/* Перегрузка операторов.*/
 #include "comPlex.h"
 
 int Complex::counter;
