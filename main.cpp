@@ -72,14 +72,25 @@ int menu()                                                  // меню LAB2
     showTable(40, 2, arrResult);
     gotoxy(20, 4);
     cout<<model;
+    for (int i = 0; i<arrSize; i++)
+    {
+        gotoxy(37, 2+i);
+        if (*arrResult[i]==model)
+            cout<<"=";
+        else
+        {
+            Complex temp = model;
+            cout<<((int)*arrResult[i]<(int)temp ? ">" : "<");
+        }
+        gotoxy(65, 2+i);
+        cout<<"(int)Complex = "<<(int)*arrResult[i];
+    }
     gotoxy(0, 18);
     cout<<"Выберите операцию для применения к значениям из таблицы:"
         <<"\n\t1 - вычитание"<<endl
         <<"\t2 - сложение"<<endl
         <<"\t3 - декремент"<<endl
         <<"\t4 - инкремент"<<endl
-        <<"\t5 - сравнение"<<endl
-        <<"\t6 - приведение к типу INT"<<endl
         <<"\tESC - выход"<<endl;
     while (!_kbhit());
     int choice = _getch();
@@ -109,28 +120,6 @@ int menu()                                                  // меню LAB2
         {
             dec(arrResult, i);
         }
-        break;
-    case '5':                           // сравнение
-        for (int i = 0; i<arrSize; i++)
-        {
-            gotoxy(37, 2+i);
-            if (*arrResult[i]==model)
-                cout<<"=";
-            else
-            {
-                Complex temp = model;
-                cout<<((int)*arrResult[i]<(int)temp ? ">" : "<");
-            }
-        }
-        _getch();
-        break;
-    case '6':                           // приведение
-        for (int i = 0; i<arrSize; i++)
-        {
-            gotoxy(65, 2+i);
-            cout<<"(int)Complex = "<<(int)*arrResult[i];
-        }
-        _getch();
         break;
     case ESC:
         deleteArr(arrPointers, arrSize);
