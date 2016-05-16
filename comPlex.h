@@ -23,28 +23,28 @@ public:
     void showObject();
     int static getCounter();
     int getNum();
-    /*-----------------------------------------------------*/
+
     void static del(Complex* &);
     void edit();
-    /*-----------------------------------------------------*/
-    Complex &operator++();
-    Complex operator++(int);
-    Complex &operator--();
-    Complex operator--(int);
-    Complex operator+(Complex&);
-    Complex operator-(Complex&);
-    Complex operator+(const Complex&);
-    Complex operator-(const Complex&);
+
+    Complex & operator ++ ();
+    Complex operator ++ (int);
+    Complex & operator -- ();
+    Complex operator -- (int);
+    Complex operator + (Complex&);
+    Complex operator - (Complex&);
+    Complex operator + (const Complex&);
+    Complex operator - (const Complex&);
     Complex operator - ();
-    Complex &operator=(Complex);
-    bool operator==(Complex);
-    bool operator!=(Complex);
+    Complex & operator = (Complex);
+    bool operator == (Complex);
+    bool operator != (Complex);
     bool operator < (Complex &);
     bool operator < (const Complex &);
     bool operator > (Complex &);
     operator int();
     Complex & operator() (int, int);
     friend ostream & operator << (ostream &out, Complex &obj);
-    friend istream & operator>>(istream &in, Complex &obj);
+    friend istream & operator >> (istream &in, Complex &obj);
     friend ostream & operator << (ostream &out, const Complex &obj);
 };

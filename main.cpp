@@ -12,15 +12,10 @@
 #include "Complex.h"
 #include <locale>
 #define ESC         27
-#define SPACEBAR    32
 #define ONE         49
 #define TWO         50
 #define THREE       51
 #define FOUR        52
-#define FIVE        53
-#define SIX         54
-#define ENTER       13
-#define DEL         83
 
 void gotoxy(int, int);
 int menu();
@@ -38,9 +33,8 @@ int arrSize = 5;                                            // размер та
 
 int main()
 {
-    setlocale(LC_ALL, "Ru");
+    setlocale(LC_ALL, "Russian");
     SetConsoleTitleA("LAB2: Complex numbers");
-    system("cls");
     arrPointers = new Complex*[arrSize]();                  // определение массива
     arrResult = new Complex*[arrSize]();
     for (int i = 0; i<arrSize; i++)                         // заполнить строки таблицы
@@ -97,16 +91,16 @@ int menu()                                                  // меню LAB2
 
     switch (choice)
     {
-    case '2':                           // сложение
-        for (int i = 0; i<arrSize; i++)
-        {
-            add(arrPointers, i);
-        }
-        break;
     case '1':                           // вычитание
         for (int i = 0; i<arrSize; i++)
         {
             sub(arrPointers, i);
+        }
+        break;
+    case '2':                           // сложение
+        for (int i = 0; i<arrSize; i++)
+        {
+            add(arrPointers, i);
         }
         break;
     case '4':                           // инкремент
@@ -171,7 +165,6 @@ void deleteArr(Complex** &arr, int size)                          		// удал�
         Complex::del(arr[i]);                                    	    // удаление объектов массива
     }
     delete[] arr;                                                       // удаление массива
-    cout<<"---------------"<<endl;
     return;
 }
 

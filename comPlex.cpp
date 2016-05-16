@@ -86,7 +86,7 @@ double Complex::arg()                                                   // àð�
     return 0;
 }
 
-Complex& Complex::operator++()                                          // ++Complex
+Complex & Complex::operator++()                                          // ++Complex
 {
     real++;
     image++;
@@ -100,7 +100,7 @@ Complex Complex::operator++(int)                                        // Compl
     return temp;
 }
 
-Complex& Complex::operator--()                                          // --Complex
+Complex & Complex::operator--()                                          // --Complex
 {
     real--;
     image--;
@@ -154,7 +154,7 @@ Complex Complex ::operator - ()                                 // унарны�
     return temp;
 }
 
-Complex &Complex::operator = (const Complex Right)              // Complex = Complex
+Complex & Complex::operator = (const Complex Right)              // Complex = Complex
 {
     if (&Right==this)
         return *this;
@@ -218,7 +218,7 @@ ostream & operator << (ostream &out, const Complex &obj)
     return out;
 }
 
-istream & operator>>(istream &in, Complex &obj)                                 // cin>>
+istream & operator >> (istream &in, Complex &obj)                                 // cin>>
 {
     cout<<"Введите real =     \b\b\b\b";
     in>>obj.real;

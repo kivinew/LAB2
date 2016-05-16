@@ -22,3 +22,8 @@
 *.xml
 *.enc
 *.properties
+*.win
+*.cbp
+*.layout
+*.dev
+*.o
