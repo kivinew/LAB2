@@ -190,13 +190,6 @@ Complex:: operator int()
     return (int)sqrt(real*real+image*image);
 }
 
-Complex & Complex::operator() (int re, int im)
-{
-    real += re;
-    image += im;
-    return *this;
-}
-
 ostream & operator << (ostream &out, Complex &obj)                              // cout<<
 {
     out<<"Z = "<<obj.real<<" + "<<obj.image<<"i      ";

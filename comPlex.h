@@ -39,7 +39,6 @@ public:
     bool operator < (const Complex &);
     bool operator > (Complex &);
     operator int();
-    Complex & operator() (int, int);
     friend ostream & operator << (ostream &out, Complex &obj);
     friend istream & operator >> (istream &in, Complex &obj);
     friend ostream & operator << (ostream &out, const Complex &obj);
