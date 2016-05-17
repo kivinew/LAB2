@@ -8,10 +8,8 @@ using namespace std;
 
 class Complex
 {
-    const double static pi;
-    int static counter;
-    int static num;
-    int objNum;
+    static double const pi;
+    static int counter;
     double real, image;
 public:
     Complex();
@@ -21,10 +19,8 @@ public:
     double mod();
     double arg();
     void showObject();
-    int static getCounter();
-    int getNum();
-
-    void static del(Complex* &);
+    static int getCounter();
+    static void del(Complex* &);
     void edit();
 
     Complex & operator ++ ();

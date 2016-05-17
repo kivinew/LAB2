@@ -1,4 +1,4 @@
-﻿/* Перегрузка операторов.
+﻿/* Лабораторная работа №2. Перегрузка операторов.
 Программу, разработанную в лабораторной работе № 1, модифицировать таким образом,
 чтобы появилась возможность применять к объектам класса следующие операторы:
 ​ Инкремент, декремент (можно только одну из префиксной и постфиксной форм).
@@ -7,7 +7,7 @@
 ​ Оператор присваивания.
 ​ Оператор приведения к типу int (или другому численному).
 ​ Операторы ввода и вывода в поток.
- */
+*/
 
 #include "Complex.h"
 #include <locale>
@@ -16,7 +16,7 @@
 #define TWO         50
 #define THREE       51
 #define FOUR        52
-
+#define FIVE        53
 void gotoxy(int, int);
 int menu();
 void showTable(int, int, Complex**&);
@@ -44,7 +44,7 @@ int main()
         showTable(0, 2, arrPointers);
         *(arrPointers+i) = new Complex(0, 0);               // создаем объект с параметрами инициализации
         cout<<i<<"-й элемент таблицы:"<<endl;
-        cin>>*arrPointers[i];
+        arrPointers[i]->edit();
         cout<<*arrPointers[i]<<endl;
     }
     for (int i = 0; i<arrSize; i++)
@@ -85,6 +85,7 @@ int menu()                                                  // меню LAB2
         <<"\t2 - сложение"<<endl
         <<"\t3 - декремент"<<endl
         <<"\t4 - инкремент"<<endl
+        <<"\t5 - изменить исходные значения"<<endl
         <<"\tESC - выход"<<endl;
     while (!_kbhit());
     int choice = _getch();
@@ -103,17 +104,25 @@ int menu()                                                  // меню LAB2
             add(arrPointers, i);
         }
         break;
+    case '3':                           // декремент
+        for (int i = 0; i<arrSize; i++)
+        {
+            dec(arrResult, i);
+        }
+        break;
     case '4':                           // инкремент
         for (int i = 0; i<arrSize; i++)
         {
             inc(arrResult, i);
         }
         break;
-    case '3':                           // декремент
-        for (int i = 0; i<arrSize; i++)
-        {
-            dec(arrResult, i);
-        }
+	case '5':
+        int num;
+        gotoxy(0,8);
+        cout<<"Введите номер элемента таблицы: ";
+        cin>>num;
+        gotoxy(0, 9);
+        arrPointers[num]->edit();
         break;
     case ESC:
         deleteArr(arrPointers, arrSize);

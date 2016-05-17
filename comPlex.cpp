@@ -2,24 +2,20 @@
 #include "comPlex.h"
 
 int Complex::counter;
-int Complex::num;
 double const Complex::pi = 3.1415926536;
 
 Complex::Complex(): real(0.), image(0.)                                         // конструктор по умолчанию
 {
-    objNum = ++num;
     counter++;
 }
 
 Complex::Complex(double re, double im): real(re), image(im)                     // конструктор с параметрами
 {
-    objNum = ++num;
     counter++;
 }
 
 Complex::Complex(const Complex &obj): real(obj.real), image(obj.image)          // конструктор копирования
 {
-    objNum = ++num;
     counter++;
 }
 
@@ -31,11 +27,6 @@ Complex::~Complex()                                                             
 int Complex::getCounter()                                                       // возврат счётчика
 {
     return counter;
-}
-
-int Complex::getNum()                                                   // âåðíóòü íîìåð îáúåêòà
-{
-    return objNum;
 }
 
 void Complex::edit()                                                    // ðåäàêòîð îáúåêòà
