@@ -29,13 +29,13 @@ int Complex::getCounter()                                                       
     return counter;
 }
 
-void Complex::edit()                                                    // ðåäàêòîð îáúåêòà
+void Complex::edit()                                                    // редактирование объекта
 {
     cin>>*this;
     return;
 }
 
-void Complex::del(Complex* &obj)                                        // óäàëåíèå îáúåêòà
+void Complex::del(Complex* &obj)                                        // удаление объекта
 {
     if (obj!=NULL)
     {
@@ -45,7 +45,7 @@ void Complex::del(Complex* &obj)                                        // óä�
     return;
 }
 
-void Complex::showObject()                                              // âûâîä îáúåêòà
+void Complex::showObject()                                              // вывод объекта
 {
     cout<<"Z="<<real<<"+"<<image<<"*i"<<"\t"<<"|Z|="<<mod()<<"\t";
     if (arg()!=0)
@@ -55,12 +55,12 @@ void Complex::showObject()                                              // âû�
     return;
 }
 
-double Complex::mod()                                                   // ìîäóëü |Z|
+double Complex::mod()                                                   // модуль |Z|
 {
     return sqrt(real*real+image*image);
 }
 
-double Complex::arg()                                                   // àðãóìåíò arg Z
+double Complex::arg()                                                   // аргумент arg Z
 {
     if (real>0) return atan(image/real);
     if (real<0)

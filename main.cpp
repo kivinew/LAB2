@@ -43,7 +43,7 @@ int main()
         cout<<model<<endl;
         showTable(0, 2, arrPointers);
         *(arrPointers+i) = new Complex(0, 0);               // создаем объект с параметрами инициализации
-        cout<<i<<"-й элемент таблицы:"<<endl;
+        cout<<endl<<i<<"-й элемент таблицы:"<<endl;
         arrPointers[i]->edit();
         cout<<*arrPointers[i]<<endl;
     }
